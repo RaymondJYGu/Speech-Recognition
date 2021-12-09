@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.io import wavfile
 import warnings
+import time
 
 warnings.filterwarnings("ignore")
 
@@ -29,20 +30,22 @@ import sounddevice as sd
 import soundfile as sf
 
 samplerate = 16000
-duration = 1 # seconds
+duration = 1  # seconds
 filename = 'fun.wav'
-print("start")
-mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
-    channels=1, blocking=True)
-print("end")
-sd.wait()
-sf.write(filename, mydata, samplerate)
 
-
-samples, sample_rate = librosa.load('fun.wav', sr = 16000)
-samples = librosa.resample(samples, sample_rate, 8000)
-ipd.Audio(samples,rate=8000)
-
-
-
-print(predict(samples))
+while(True):
+    print("start")
+    mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
+        channels=1, blocking=True)
+    print("end")
+    sd.wait()
+    sf.write(filename, mydata, samplerate)
+    samples, sample_rate = librosa.load('fun.wav', sr=16000)
+    samples = librosa.resample(samples, sample_rate, 8000)
+    print(predict(samples))
+    print(3)
+    time.sleep(1)
+    print(2)
+    time.sleep(1)
+    print(1)
+    time.sleep(1)
